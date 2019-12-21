@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		cxt.beginPath();
+		// for (let i = 0; i < 5; i++) {
+		// 	// cxt.lineTo(Math.cos((18 + i * 72) / 180 * Math.PI) * 300 + 400, -Math.sin((18 + i * 72) / 180 * Math.PI) * 300 + 400);
+		// 	// cxt.lineTo(Math.cos((54 + i * 72) / 180 * Math.PI) * 150 + 400, -Math.sin((54 + i * 72) / 180 * Math.PI) * 150 + 400);
+		// }
+		drawStar(cxt, 150, 300, 400, 400, 30);
+		// cxt.closePath();
+
+		// cxt.stroke();
+
+
+		function drawStar(cxt, r, R, x, y, rot) {
+			// rot旋转角度
+			cxt.beginPath();
+			cxt.lineWidth = 10;
+			for (let i = 0; i < 5; i++) {
+				cxt.lineTo(Math.cos((18 + i * 72) / 180 * Math.PI - rot) * R + x, -Math.sin((18 + i * 72) / 180 * Math.PI - rot) * R + y);
+				cxt.lineTo(Math.cos((54 + i * 72) / 180 * Math.PI - rot) * r + x, -Math.sin((54 + i * 72) / 180 * Math.PI - rot) * r + y);
+			}
+			// 设置连线衔接处
+			cxt.lineJoin = "round";
+			cxt.closePath();
+			cxt.stroke();
+		}
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

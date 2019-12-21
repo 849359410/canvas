@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+		let radius = 380; // 太极图的半径
+
+		// 绘制两个半圆并且填充颜色
+		circular(cxt, canvas.width / 2, canvas.height / 2, "black", true);
+		circular(cxt, canvas.width / 2, canvas.height / 2, "#fff", false);
+		function circular(cxt, x, y, color, direction) {
+			cxt.save();
+			cxt.beginPath();
+			cxt.arc(x, y, radius,  1.5 * Math.PI, 0.5 * Math.PI, direction);
+			cxt.fillStyle = color;
+			cxt.strokeStyle = "red";
+			cxt.fill();
+			cxt.stroke();
+			cxt.closePath();
+			cxt.restore();
+		}
+		// 绘制上下黑白圆
+		Semicircle(cxt, canvas.width / 2, radius / 2 + (canvas.height - radius * 2) / 2, radius / 2, "#FFF", true);
+		Semicircle(cxt, canvas.width / 2, canvas.width / 2 + radius / 2, radius / 2, "#000", false);
+		function Semicircle (cxt, x, y, r, color, direction) {
+			cxt.save();
+			cxt.beginPath();
+			cxt.arc(x, y, r, 1.5 * Math.PI, 0.5 * Math.PI, direction);
+			cxt.strokeStyle = "red";
+			cxt.fillStyle = color;
+			cxt.fill();
+			cxt.stroke();
+			cxt.closePath();
+			cxt.restore();
+		}
+		// 上下两个黑点
+		Dot(cxt, canvas.width / 2, radius / 2 + (canvas.height - radius * 2) / 2, "black");
+		Dot(cxt, canvas.width / 2, canvas.width / 2 + radius / 2, "#FFF");
+		function Dot(cxt, x, y, color) {
+			cxt.save();
+			cxt.beginPath();
+			cxt.arc(x, y, 30 / 2, 0, 2 * Math.PI, false);
+			cxt.strokeStyle = "red";
+			cxt.fillStyle = color;
+			cxt.fill();
+			cxt.stroke();
+			cxt.closePath();
+			cxt.restore();
+		}
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>
