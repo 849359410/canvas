@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		let radialGrad = cxt.createRadialGradient(400, 400, 100, 400, 400, 500);
+
+		radialGrad.addColorStop(0.0, "#fff");
+		radialGrad.addColorStop(0.25, "yellow");
+		radialGrad.addColorStop(0.5, "green");
+		radialGrad.addColorStop(0.75, "blue");
+		radialGrad.addColorStop(1.0, "#000");
+
+		cxt.fillStyle = radialGrad;
+
+		cxt.fillRect(0, 0, 800, 800);
+
+
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

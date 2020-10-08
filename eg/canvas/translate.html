@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文字向上无缝滚动</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<style type="text/css">
+		#container{width:400px;height:24px;margin:0 auto;border:1px solid red;overflow: hidden;}
+		ul{list-style: none;padding:0;margin:0}
+		ul li{height:24px;line-height: 24px;}
+	</style>
+</head>
+<body>
+<div id="container">
+	<ul id="con1">
+		<li>javascript1</li>
+		<li>javascript2</li>
+	</ul>
+</div>
+<script type="text/javascript">
+	var c=document.getElementById("container");
+	var con1=document.getElementById("con1");
+	con1.innerHTML+=con1.innerHTML;  //把自身的内容变为原来的2倍
+	var speed=50;
+	function sTop(){
+		if(c.scrollTop>=con1.scrollHeight/2){  //如果卷去的高度>=整个ul高度的一半时
+			c.scrollTop=0;
+			c.scrollTop=c.scrollTop-con1.scrollHeight/2; //让ul回到原点  即c.scrollTop=0
+		}else{
+			c.scrollTop++;  //如若不然，继续往上滚动
+		}
+	}
+	function startMove(){
+		c.scrollTop++;
+		timer=setInterval(sTop,speed);
+	}
+	startMove();
+</script>
+</body>
+</html>

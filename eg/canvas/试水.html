@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 1440;
+		canvas.height = 810;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		function getLocation(x, y) {
+			let bbox = canvas.getBoundingClientRect();
+			return {
+				x: (x - bbox.left) * (canvas.width / bbox.width),
+				y: (y - bbox.top) * (canvas.height / bbox.height)
+			};
+		}
+		canvas.onmousemove = (e) => {
+
+			let location = getLocation(e.clientX, e.clientY);
+			// cxt.clearRect(0, 0,location.x, location.y);
+			console.log(location);
+			cxt.save();
+			cxt.moveTo(0, 0);
+			cxt.lineTo(location.x, location.y);
+			cxt.lineWidth = 5;
+			cxt.stroke();
+			cxt.restore();
+		};
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

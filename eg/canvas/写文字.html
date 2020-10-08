@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvasWidth = 800;
+		let canvasHeight = 800;
+		let canvas = document.getElementById("canvas");
+		let cxt = canvas.getContext("2d");
+		let isMouseDown = false;
+		let lastLoc = {}; // 起点坐标
+
+		let ws = new WebSocket("ws://localhost:9999");
+
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
+		drawGrid();
+		WebSocketTest();
+
+		// 鼠标按下点击事件
+		canvas.onmousedown = (event) => {
+			event.preventDefault();
+			isMouseDown = true;
+			// lastLoc = windowToCanvas(event.clientX, event.clientY);
+			let xY = JSON.stringify(windowToCanvas(event.clientX, event.clientY));
+			ws.send(xY);
+			// console.log("鼠标点击", loc);
+		};
+
+		// 鼠标松开点击事件
+		canvas.onmouseup = (event) => {
+			event.preventDefault();
+			isMouseDown = false;
+			console.log("松开点击");
+			lastLoc = {};
+			let msg = 'release';
+			ws.send(msg);
+		};
+
+		// 鼠标移出canvas画布
+		canvas.onmouseout = (event) => {
+			event.preventDefault();
+			isMouseDown = false;
+			console.log("移出画布");
+			lastLoc = {};
+		};
+
+		// 鼠标移入canvas画布中
+		canvas.onmousemove = (event) => {
+			event.preventDefault();
+			if (isMouseDown && Object.keys(lastLoc).length) {
+				// console.log("移入画布");
+				let loc = windowToCanvas(event.clientX, event.clientY);
+				// 更新初始绘制坐标
+				ws.send(JSON.stringify(loc));
+			}
+		};
+
+		// 获取鼠标在画布的x y坐标
+		function windowToCanvas(x, y) {
+			let bbox = canvas.getBoundingClientRect();
+			return {
+				x: Math.round(x - bbox.left),
+				y: Math.round(y - bbox.top)
+			};
+		}
+
+		function drawGrid() {
+			cxt.save();
+			cxt.strokeStyle = "red";
+			cxt.beginPath();
+			cxt.moveTo(0, 0);
+			cxt.lineTo(canvas.width, 0);
+			cxt.lineTo(canvas.width, canvas.height);
+			cxt.lineTo(0, canvas.height);
+			cxt.lineTo(0, 0);
+			cxt.lineWidth = 6;
+			cxt.stroke();
+			cxt.closePath();
+
+			cxt.beginPath();
+			cxt.moveTo(0, 0);
+			cxt.lineTo(canvas.width, canvas.height);
+
+			cxt.moveTo(0, canvas.height / 2);
+			cxt.lineTo(canvas.width, canvas.height / 2);
+
+			cxt.moveTo(canvas.width / 2, 0);
+			cxt.lineTo(canvas.width / 2, canvas.height);
+
+			cxt.moveTo(canvas.width, 0);
+			cxt.lineTo(0, canvas.height);
+
+			cxt.lineWidth = 1;
+			cxt.stroke();
+			cxt.closePath();
+			cxt.restore();
+		}
+		function WebSocketTest() {
+			if ("WebSocket" in window) {
+				// alert("您的浏览器支持 WebSocket!");
+
+				// 初始化一个 WebSocket 对象，参数指明url
+				// var ws = new WebSocket("ws://localhost:9999");
+
+				// WebSocket 连接时候触发
+				ws.onopen = function () {
+					//使用 send() 方法发送数据
+					// ws.send("客户端发送的数据");
+					// alert("数据发送中...");
+				};
+
+				// 接收服务端数据时触发
+				ws.onmessage = function (data) {
+					if (data.data === 'release') {
+						lastLoc = {};
+					} else {
+						if (data) {
+							let loc = JSON.parse(data.data);
+							cxt.beginPath();
+							cxt.moveTo(lastLoc.x, lastLoc.y);
+							cxt.lineTo(loc.x, loc.y);
+							cxt.lineWidth = 4;
+							cxt.strokeStyle = randomColor();
+							cxt.stroke();
+							lastLoc = loc;
+							cxt.closePath();
+							console.log(lastLoc);
+
+						}
+					}
+					// alert("数据已接收...");
+				};
+
+				//断开 web socket 连接成功触发事件
+				// ws.onclose = function () {
+				// 	// 关闭 websocket
+				// 	alert("连接已关闭...");
+				// };
+			}
+		}
+		// 随机颜色
+		function randomColor() {
+			return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
+		}
+
+	});
+
+</script>
+<style>
+	#canvas {
+		margin: 0 auto;
+		display: block;
+	}
+</style>

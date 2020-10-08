@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 1440;
+		canvas.height = 810;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		let width = 120;
+		let height = 30;
+
+		for (let y = 0; y < canvas.height / height; y++) {
+			for (let i = 0; i < canvas.width / width; i++) {
+				let color = randomColor();
+				cxt.beginPath();
+				cxt.fillStyle = color;
+				cxt.fillRect(width * i, height * y, width, height);
+				cxt.fill();
+				cxt.closePath();
+			}
+		}
+
+		function getLocation(x, y) {
+			let bbox = canvas.getBoundingClientRect();
+			return {
+				x: (x - bbox.left) * (canvas.width / bbox.width),
+				y: (y - bbox.top) * (canvas.height / bbox.height)
+			};
+		}
+		canvas.onmousemove = (e) => {
+			let location = getLocation(e.clientX, e.clientY);
+			console.log(location);
+		};
+
+		// 随机颜色
+		function randomColor() {
+			return `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`;
+		}
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

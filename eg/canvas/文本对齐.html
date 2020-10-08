@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		cxt.fillStyle = "red";
+		cxt.font = "bold 40px sans-serif";
+
+		cxt.textAlign = "left";
+		cxt.fillText("textAline = left", 400, 100);
+
+		cxt.textAlign = "center";
+		cxt.fillText("textAline = center", 400, 200);
+
+		cxt.textAlign = "right";
+		cxt.fillText("textAline = right", 400, 300);
+
+		// 文本垂直对齐
+		// cxt.textBaseline();
+		cxt.measureText("哈哈哈").width;
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

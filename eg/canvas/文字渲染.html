@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		cxt.font = "bold 40px Arial";
+		cxt.fillStyle = "red";
+		cxt.fillText("哈哈哈", 100, 100);
+
+		cxt.lineWidth = 1;
+		cxt.strokeText("哈哈哈", 100, 200);
+
+		cxt.fillText("哈哈哈1", 100, 300, 1100);
+		cxt.strokeText("哈哈哈2", 100, 400, 4000);
+
+		// 渐变文字
+		let linearGrad = cxt.createLinearGradient(0, 0, 800, 0);
+
+		linearGrad.addColorStop(0, "magenta");
+		linearGrad.addColorStop(0.5, "blue");
+		linearGrad.addColorStop(1.0, "red");
+		cxt.fillStyle = linearGrad;
+		cxt.fillText("哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈", 100, 500);
+
+		// 图片文字
+		let img = new Image();
+		img.src = "./timg.jpg";
+		img.onload = () => {
+			cxt.fillStyle = cxt.createPattern(img, "repeat");
+			cxt.font = "bold 100px Arial";
+			cxt.fillText("哈哈哈", 100, 700);
+		}
+
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

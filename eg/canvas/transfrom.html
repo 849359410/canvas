@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		// cxt.transform();
+		/**
+		 * cxt.transform(a, b, c, d, e, f)
+		 * 里面包含六个参数值
+		 * a (水平缩放) 默认值为 1
+		 * b (水平倾斜) 默认值为 0
+		 * c (垂直倾斜) 默认值为 0
+		 * d (垂直缩放) 默认值为 1
+		 * e (水平位移) 默认值为 0
+		 * f (垂直位移) 默认值为 0
+		 * */
+		cxt.fillStyle = "yellow";
+		cxt.strokeStyle = "red";
+		cxt.lineWidth = 10;
+		cxt.beginPath();
+		cxt.save();
+		cxt.transform(0.5, 0.9, 0.9, 0.5, 111, 111);
+		cxt.setTransform(1, 0, 0, 1, 0, 0); // 忽略前面的所有的transform
+		cxt.fillRect(50, 50, 400, 400);
+		cxt.strokeRect(50, 50, 400, 400);
+
+		// cxt.fill();
+		// cxt.stroke();
+		cxt.closePath();
+		cxt.restore();
+
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

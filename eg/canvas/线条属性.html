@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		cxt.lineWidth = 10;
+		cxt.strokeStyle = "#058";
+
+		cxt.beginPath();
+		cxt.moveTo(100, 200);
+		cxt.lineTo(700, 200);
+		cxt.lineCap = "butt";
+		cxt.stroke();
+
+		cxt.beginPath();
+		cxt.moveTo(100, 400);
+		cxt.lineTo(700, 400);
+		cxt.lineCap = "round"; // 线条开始和结束以圆头溢出
+		cxt.stroke();
+
+		cxt.beginPath();
+		cxt.moveTo(100, 600);
+		cxt.lineTo(700, 600);
+		cxt.lineCap = "square"; // 线条开始和结束以方头溢出
+		cxt.stroke();
+
+		drawRect(cxt, 100, 100, 600, 600, 2, "green", "rgba(255, 255, 0, 0.6)");
+		function drawRect(cxt, x, y, width, height, borderWidth, borderColor, bgColor) {
+			cxt.beginPath();
+			cxt.rect(x, y, width, height);
+			cxt.closePath();
+			cxt.strokeStyle = borderColor;
+			cxt.fillStyle = bgColor;
+			cxt.lineWidth = borderWidth;
+
+			cxt.fill();
+			cxt.stroke();
+		}
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

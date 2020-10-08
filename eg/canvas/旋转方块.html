@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+
+		canvas.width = 800;
+		canvas.height = 800;
+		let cxt = canvas.getContext("2d");
+		let num = 0;
+		setInterval(() => f(), 20);
+		function f() {
+			num++;
+			cxt.clearRect(0,0,canvas.width,canvas.height);
+			cxt.save();
+			cxt.beginPath();
+
+
+			cxt.translate(400, 400);
+			cxt.rotate(num * Math.PI / 180);
+			cxt.translate(-200, -200);
+			cxt.fillStyle = "red";
+			cxt.fillRect(0, 0, 400, 400);
+
+			cxt.closePath();
+			cxt.restore();
+		}
+	})
+
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

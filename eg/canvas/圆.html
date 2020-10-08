@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		#canvas {
+			border: 1px solid #aaa;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+<!--canvas 设置宽高需要在 html的属性中-->
+<canvas id="canvas" width="400" height="400">浏览器不支持该标记！</canvas>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 1200;
+		canvas.height = 800;
+		let cxt = canvas.getContext("2d");
+		cxt.lineWidth = 5;
+		cxt.strokeStyle = "#058";
+
+		for (let i = 0; i < 10; i++) {
+			cxt.beginPath();
+			cxt.arc(50 + i * 100, 100, 40, 0, 2 * Math.PI * (i + 1) / 10);
+			cxt.closePath();
+			cxt.stroke();
+		}
+
+		for (let i = 0; i < 10; i++) {
+			cxt.beginPath();
+			cxt.arc(50 + i * 100, 260, 40, 0, 2 * Math.PI * (i + 1) / 10);
+			cxt.stroke();
+		}
+
+	})
+</script>
+</body>
+</html>

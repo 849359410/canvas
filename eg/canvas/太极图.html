@@ -17,14 +17,38 @@
 		let cxt = canvas.getContext("2d");
 		// 太极图的半径
 		let radius = 380;
+		let rot = 0;
+		setInterval(() => {
+			rot++;
+			if (rot === 360) rot = 0;
+			f()
+		}, 10);
+		function f() {
+			cxt.save();
+			cxt.beginPath();
+			cxt.clearRect(0, 0, canvas.width, canvas.height);
+			cxt.translate(canvas.width / 2, canvas.height / 2);
+			cxt.rotate(rot * Math.PI / 180);
+			cxt.lineWidth = 2;
+			// 绘制两个半圆并且填充颜色
+			circular(cxt, 422, 400, "black", true);
+			circular(cxt, canvas.width / 2, canvas.height / 2, "#fff", false);
+			// 绘制上下黑白圆
+			Semicircle(cxt, 0, -190, radius / 2, "#FFF", true);
+			Semicircle(cxt, 0, 190, radius / 2, "#000", false);
+			// 上下两个黑点
+			Dot(cxt, 0, -radius / 2 + (canvas.height - radius * 2) / 2, "black");
+			Dot(cxt, 0, radius / 2 + (canvas.height - radius * 2) / 2, "#FFF");
+			cxt.arc(0, 0, radius, 0 , 2 * Math.PI , true);
+			cxt.closePath();
+			cxt.restore();
+		}
 
-		// 绘制两个半圆并且填充颜色
-		circular(cxt, canvas.width / 2, canvas.height / 2, "black", true);
-		circular(cxt, canvas.width / 2, canvas.height / 2, "#fff", false);
+
 		function circular(cxt, x, y, color, direction) {
 			cxt.save();
 			cxt.beginPath();
-			cxt.arc(x, y, radius,  1.5 * Math.PI, 0.5 * Math.PI, direction);
+			cxt.arc(0, 0, radius,  1.5 * Math.PI, 0.5 * Math.PI, direction);
 			cxt.fillStyle = color;
 			cxt.strokeStyle = "red";
 			cxt.fill();
@@ -32,9 +56,7 @@
 			cxt.closePath();
 			cxt.restore();
 		}
-		// 绘制上下黑白圆
-		Semicircle(cxt, canvas.width / 2, radius / 2 + (canvas.height - radius * 2) / 2, radius / 2, "#FFF", true);
-		Semicircle(cxt, canvas.width / 2, canvas.width / 2 + radius / 2, radius / 2, "#000", false);
+
 		function Semicircle (cxt, x, y, r, color, direction) {
 			cxt.save();
 			cxt.beginPath();
@@ -46,9 +68,7 @@
 			cxt.closePath();
 			cxt.restore();
 		}
-		// 上下两个黑点
-		Dot(cxt, canvas.width / 2, radius / 2 + (canvas.height - radius * 2) / 2, "black");
-		Dot(cxt, canvas.width / 2, canvas.width / 2 + radius / 2, "#FFF");
+
 		function Dot(cxt, x, y, color) {
 			cxt.save();
 			cxt.beginPath();

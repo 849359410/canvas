@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+		cxt.beginPath();
+		cxt.moveTo(100, 300);
+		cxt.lineTo(300, 300);
+		cxt.lineTo(300, 200);
+		cxt.lineTo(400, 340);
+		cxt.lineTo(300, 440);
+		cxt.lineTo(300, 360);
+		cxt.lineTo(100, 360);
+		cxt.lineTo(100, 300);
+		cxt.closePath(); // 当前的路径要被封闭并且结束绘制（绘制一个封闭的多边形）
+		cxt.lineWidth = 5;
+		// 一定要先填充颜色在进行描边
+		cxt.fillStyle = "yellow"; // 填充颜色
+		cxt.strokeStyle = "#058";
+
+		cxt.fill();
+		cxt.stroke();
+
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

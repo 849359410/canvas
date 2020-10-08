@@ -1,0 +1,41 @@
+<body>
+<canvas id = "canvas" width="400px" height="400px">
+	您的浏览器不支持Canvas标签，请升级或更换浏览器
+</canvas>
+</body>
+</html>
+<script>
+	let canvas = document.getElementById("canvas");
+	let cxt = canvas.getContext("2d");
+
+	function roundRect(x, y, w, h, r) {
+		if (w < 2 * r) r = w / 2;
+		if (h < 2 * r) r = h / 2;
+		cxt.beginPath();
+		cxt.moveTo(x+r, y);
+		cxt.arcTo(x+w, y, x+w, y+h, r);
+		cxt.arcTo(x+w, y+h, x, y+h, r);
+		cxt.arcTo(x, y+h, x, y, r);
+		cxt.arcTo(x, y, x+w, y, r);
+		cxt.stroke();
+		cxt.closePath();
+	}
+
+	function drawChip() {
+		cxt.beginPath();
+
+		cxt.closePath();
+	}
+	cxt.lineWidth = 2;
+	cxt.strokeStyle = "#F00";
+	roundRect(100, 60, 200, 120, 10);
+</script>
+<style>
+	#canvas {
+		width: 800px;
+		height: 800px;
+		border: 1px solid #ccc;
+	}
+
+
+</style>

@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 1200;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		cxt.globalAlpha = 0.7;
+
+		setInterval(() => {
+
+		}, 30);
+		Draw();
+		function Draw() {
+			cxt.clearRect(0, 0, canvas.width, canvas.height)
+			for (let i = 0; i < 80; i++) {
+				cxt.beginPath();
+				cxt.arc(Math.random() * cxt.canvas.width, Math.random() * cxt.canvas.height, Math.random() * 100, 0, 2 * Math.PI, false);
+				cxt.fillStyle = randomColor();
+				cxt.fill();
+				cxt.closePath();
+			}
+		}
+		function upData() {
+
+		}
+		function randomColor() {
+			return `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+		}
+
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: auto;
+	}
+</style>

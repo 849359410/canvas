@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 1200;
+		canvas.height = 800;
+		// 开始绘制
+		let ctx = canvas.getContext("2d");
+
+		let img = new Image();
+		img.src = "./emotion.png";
+		img.onload = () => {
+			// createPattern 可以放图片，视频，新的canvas画布
+			ctx.fillStyle = ctx.createPattern(img, "no-repeat");
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+		};
+
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>

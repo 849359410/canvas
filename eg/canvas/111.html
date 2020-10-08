@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<button id="btn">点击请求</button>
+<script>
+	window.addEventListener("load", () => {
+		let xhr = new XMLHttpRequest();
+		let btn = document.getElementById("btn");
+		btn.addEventListener("click", getList);
+
+		function getList() {
+			console.log(111);
+			xhr.open("GET", "http://192.168.1.66:8888/v1/api/GetNoticeData?id=133", true);
+			xhr.send();
+			console.log(xhr);
+			xhr.onload = () => {
+				console.log(1112);
+			}
+		}
+
+
+	})
+</script>
+</body>
+</html>

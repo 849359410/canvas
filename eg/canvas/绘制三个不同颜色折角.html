@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas</canvas>
+</body>
+</html>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+		// 开始绘制
+		let cxt = canvas.getContext("2d");
+
+		// 设置线条宽度
+		cxt.lineWidth = 10;
+
+		// 绘制第一个折角
+		cxt.beginPath();
+		cxt.moveTo(100, 200);
+		cxt.lineTo(250, 400);
+		cxt.lineTo(100, 600);
+		cxt.strokeStyle = "red";
+		cxt.stroke();
+		// beginPath() 终断当前绘制，进行下一步绘制操作（表示从这里开始，将进行一次全新的路径绘制）
+
+		cxt.beginPath();
+		// 绘制第二个折角
+		cxt.moveTo(300, 200);
+		cxt.lineTo(450, 400);
+		cxt.lineTo(300, 600);
+		cxt.strokeStyle = "green";
+		cxt.stroke();
+
+		cxt.beginPath();
+		// 第三个
+		cxt.moveTo(500, 200);
+		cxt.lineTo(650, 400);
+		cxt.lineTo(500, 600);
+		cxt.strokeStyle = "blue";
+		cxt.stroke();
+	})
+</script>
+<style>
+	#canvas {
+		border: 1px solid #aaa;
+		margin: 0 auto;
+	}
+</style>
