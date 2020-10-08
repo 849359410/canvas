@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		body{background: #ccc;}
+		#oc{background: #fff;}
+	</style>
+</head>
+<body>
+<!--canvas 设置宽高需要在 html的属性中-->
+<canvas id="canvas" width="400" height="400">浏览器不支持该标记！</canvas>
+<script>
+	window.addEventListener("load", () => {
+		let canvas = document.getElementById("canvas");
+		canvas.width = 800;
+		canvas.height = 800;
+
+		let cxt = canvas.getContext("2d");
+
+		
+
+	});
+</script>
+</body>
+</html>
